@@ -34,6 +34,8 @@ dependencies:
   path: ^1.8.0 # Para manejar rutas de archivos
   cupertino_icons: ^1.0.8 # Iconos de estilo iOS
   fl_chart: ^0.55.2
+  table_calendar: ^3.0.9
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -32,6 +32,15 @@ class MenuDrawer extends StatelessWidget {
             },
           ),
           _buildListTile(
+            title: 'Historial',
+            icon: Icons.history,
+            onTap: () {
+               Navigator.pop(context); // Cierra el Drawer
+              Navigator.pushNamed(context, '/historial'
+              );
+            },
+          ),
+          _buildListTile(
             title: 'Configuración',
             icon: Icons.settings,
             onTap: () {

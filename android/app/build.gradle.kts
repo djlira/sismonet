@@ -8,7 +8,9 @@ plugins {
 android {
     namespace = "com.example.sismonet"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+   
+    ndkVersion = "27.0.12077973"
+     compileSdk = 34 // o la versión de compileSdk que estés usando
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
