@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:sismonet/menus/menu_drawer.dart'; // Asegúrate de que esta ruta sea correcta
+import 'package:sismonet/menus/menu_drawer.dart';
+import 'package:sismonet/theme/colors.dart';
 
 class MostrarData extends StatefulWidget {
   const MostrarData({super.key});
 
   @override
-  State<MostrarData> createState() => _MPU6050ScreenState();
+  State<MostrarData> createState() => _MostrarDataState();
 }
 
-class _MPU6050ScreenState extends State<MostrarData> {
+class _MostrarDataState extends State<MostrarData> {
   // Datos iniciales para las gráficas
   List<double> accelerometerX = List.filled(50, 0.0);
   List<double> accelerometerY = List.filled(50, 0.0);
@@ -21,37 +22,26 @@ class _MPU6050ScreenState extends State<MostrarData> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Integra el MenuDrawer aquí
-      
-      drawer: const MenuDrawer(), // Asegúrate de que MenuDrawer sea un Drawer válido
-     appBar: AppBar(
-        backgroundColor: const Color(0xFF424669), // Fondo oscuro para la AppBar
-        title: const Text(
-          'Lectura',
-          style: TextStyle(color: Colors.white), // Letras blancas
-        ),
+      drawer: const MenuDrawer(),
+      appBar: AppBar(
+        title: const Text('Lectura'),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.white), // Ícono blanco
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+            icon: const Icon(Icons.menu),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
       ),
-      backgroundColor: const Color(0xFF2D3250), // Color de fondo
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Gráfica del Acelerómetro
               _buildSensorCard(
                 title: 'Acelerómetro',
                 chart: _buildLineChart(accelerometerX, accelerometerY, accelerometerZ),
               ),
               const SizedBox(height: 20),
-              // Gráfica del Giroscopio
               _buildSensorCard(
                 title: 'Giroscopio',
                 chart: _buildLineChart(gyroscopeX, gyroscopeY, gyroscopeZ),
@@ -63,10 +53,9 @@ class _MPU6050ScreenState extends State<MostrarData> {
     );
   }
 
-  // Tarjeta para mostrar la gráfica
   Widget _buildSensorCard({required String title, required Widget chart}) {
     return Card(
-      color: const Color(0xFF424769), // Color de la tarjeta
+      color: AppColors.cardColor,
       elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -75,25 +64,16 @@ class _MPU6050ScreenState extends State<MostrarData> {
           children: [
             Text(
               title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
-            // Gráfica
-            SizedBox(
-              height: 200,
-              child: chart,
-            ),
+            SizedBox(height: 200, child: chart),
           ],
         ),
       ),
     );
   }
 
-  // Gráfica de líneas para los datos del sensor
   Widget _buildLineChart(List<double> xData, List<double> yData, List<double> zData) {
     return LineChart(
       LineChartData(
@@ -101,35 +81,20 @@ class _MPU6050ScreenState extends State<MostrarData> {
         titlesData: FlTitlesData(show: false),
         borderData: FlBorderData(show: false),
         lineBarsData: [
-          // Datos del eje X
-          LineChartBarData(
-            spots: xData.asMap().entries.map((entry) {
-              return FlSpot(entry.key.toDouble(), entry.value);
-            }).toList(),
-            isCurved: true,
-            color: (Colors.red),
-            dotData: FlDotData(show: false),
-          ),
-          // Datos del eje Y
-          LineChartBarData(
-            spots: yData.asMap().entries.map((entry) {
-              return FlSpot(entry.key.toDouble(), entry.value);
-            }).toList(),
-            isCurved: true,
-            color: (Colors.green),
-            dotData: FlDotData(show: false),
-          ),
-          // Datos del eje Z
-          LineChartBarData(
-            spots: zData.asMap().entries.map((entry) {
-              return FlSpot(entry.key.toDouble(), entry.value);
-            }).toList(),
-            isCurved: true,
-            color: (Colors.blue),
-            dotData: FlDotData(show: false),
-          ),
+          _buildLineChartBar(xData, AppColors.red),
+          _buildLineChartBar(yData, AppColors.green),
+          _buildLineChartBar(zData, AppColors.blue),
         ],
       ),
+    );
+  }
+
+  LineChartBarData _buildLineChartBar(List<double> data, Color color) {
+    return LineChartBarData(
+      spots: data.asMap().entries.map((entry) => FlSpot(entry.key.toDouble(), entry.value)).toList(),
+      isCurved: true,
+      color: color,
+      dotData: FlDotData(show: false),
     );
   }
 }

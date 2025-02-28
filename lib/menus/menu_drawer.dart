@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sismonet/theme/colors.dart'; // Importa los colores del tema
 
 class MenuDrawer extends StatelessWidget {
   const MenuDrawer({super.key});
@@ -6,20 +7,20 @@ class MenuDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: const Color(0xFF424669), // Fondo oscuro para el Drawer
+      backgroundColor: AppColors.primaryColor, // Fondo del Drawer
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: Color(0xFF2E3250), // Fondo oscuro para el encabezado
+              color: AppColors.secondaryColor, // Fondo del encabezado
             ),
-            child: Text(
+            child: const Text(
               'Menú',
               style: TextStyle(
-                color: Colors.white, // Letras blancas
+                color: AppColors.textColor, // Letras con color del tema
                 fontSize: 30,
-                fontWeight: FontWeight.bold, // Texto en negrita
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -27,17 +28,16 @@ class MenuDrawer extends StatelessWidget {
             title: 'Datos del MPU6050',
             icon: Icons.sensors,
             onTap: () {
-              Navigator.pop(context); // Cierra el Drawer
-              Navigator.pushNamed(context, '/login');
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/mostrar_datos');
             },
           ),
           _buildListTile(
             title: 'Historial',
             icon: Icons.history,
             onTap: () {
-               Navigator.pop(context); // Cierra el Drawer
-              Navigator.pushNamed(context, '/historial'
-              );
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/historial');
             },
           ),
           _buildListTile(
@@ -46,7 +46,11 @@ class MenuDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Configuración no implementada')),
+                SnackBar(
+                  content: Text('Configuración no implementada',
+                      style: TextStyle(color: AppColors.textColor)),
+                  backgroundColor: AppColors.secondaryColor,
+                ),
               );
             },
           ),
@@ -56,14 +60,18 @@ class MenuDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Acerca de no implementado')),
+                SnackBar(
+                  content: Text('Acerca de no implementado',
+                      style: TextStyle(color: AppColors.textColor)),
+                  backgroundColor: AppColors.secondaryColor,
+                ),
               );
             },
           ),
           _buildListTile(
             title: 'Salir',
             icon: Icons.exit_to_app,
-            iconColor: const Color.fromARGB(255, 255, 17, 0),
+            iconColor: Colors.redAccent,
             onTap: () {
               Navigator.pop(context);
               _confirmarSalida(context);
@@ -74,7 +82,6 @@ class MenuDrawer extends StatelessWidget {
     );
   }
 
-  // Método para construir ListTiles con menos repetición de código
   Widget _buildListTile({
     required String title,
     required IconData icon,
@@ -84,31 +91,30 @@ class MenuDrawer extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: AppColors.textColor),
       ),
       leading: Icon(icon, color: iconColor),
       onTap: onTap,
     );
   }
 
-  // Método para confirmar la salida
   void _confirmarSalida(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF2E3250), // Fondo oscuro del diálogo
-        title: const Text(
+        backgroundColor: AppColors.secondaryColor, // Fondo del diálogo
+        title: Text(
           '¿Estás seguro?',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.textColor),
         ),
-        content: const Text(
+        content: Text(
           '¿Deseas salir de la aplicación?',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.textColor),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancelar', style: TextStyle(color: Colors.white)),
+            child: Text('Cancelar', style: TextStyle(color: AppColors.textColor)),
           ),
           TextButton(
             onPressed: () {
