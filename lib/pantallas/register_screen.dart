@@ -52,15 +52,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.primaryColor, // Usa el color primario
-                    AppColors.secondaryColor, // Usa el color secundario
+                    AppColors.secondaryColor, // Usa el color primario
+                    AppColors.primaryColor, // Usa el color secundario
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
               ),
               width: double.infinity,
-              height: size.height * 0.3,
+              height: double.infinity,
             ),
 
             // Icono de usuario
@@ -85,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     decoration: BoxDecoration(
-                      color: AppColors.cardColor, // Usa el color de las tarjetas
+                      color: AppColors.primaryColor, // Usa el color de las tarjetas
                       borderRadius: BorderRadius.circular(25),
                       boxShadow: const [
                         BoxShadow(
@@ -145,7 +145,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           // Botón de registro
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.secondaryColor, // Usa el color secundario
+                              backgroundColor: AppColors.secondaryColor, 
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
@@ -155,7 +155,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                               'Registrarse',
                               style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    color: AppColors.textColor, // Usa el color de texto
+                                    color: AppColors.textColor, 
                                   ),
                             ),
                           ),

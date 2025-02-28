@@ -63,13 +63,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [AppColors.primaryColor, AppColors.secondaryColor],
+                  colors: [AppColors.secondaryColor, AppColors.primaryColor],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                 ),
               ),
               width: double.infinity,
-              height: size.height * 0.3,
+              height: double.infinity,
             ),
             SafeArea(
               child: Container(
