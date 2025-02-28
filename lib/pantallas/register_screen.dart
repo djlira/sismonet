@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../database/database_helper.dart';
 import '../models/user.dart';
+import '../theme/colors.dart'; // Importa la paleta de colores
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -48,11 +49,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             // Fondo con gradiente
             Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Color(0xFF2D3250), // #2D3250
-                    Color(0xFF424769), // #424769
+                    AppColors.primaryColor, // Usa el color primario
+                    AppColors.secondaryColor, // Usa el color secundario
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -67,9 +68,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Container(
                 margin: const EdgeInsets.only(top: 40),
                 width: double.infinity,
-                child: const Icon(
+                child: Icon(
                   Icons.person_add,
-                  color: Colors.white,
+                  color: AppColors.iconColor, // Usa el color de íconos
                   size: 100,
                 ),
               ),
@@ -84,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.symmetric(horizontal: 30),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF2D3250), // #2D3250
+                      color: AppColors.cardColor, // Usa el color de las tarjetas
                       borderRadius: BorderRadius.circular(25),
                       boxShadow: const [
                         BoxShadow(
@@ -101,18 +102,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(height: 10),
                           Text(
                             "Registro",
-                            style: TextStyle(
-                              color: Colors.white, // Texto blanco
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: AppColors.textColor, // Usa el color de texto
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                           const SizedBox(height: 30),
                           // Campo de nombre
                           TextFormField(
                             controller: _nombreController,
                             decoration: _inputDecoration('Nombre', Icons.person),
-                            style: TextStyle(color: Colors.white), // Texto blanco
+                            style: TextStyle(color: AppColors.textColor), // Usa el color de texto
                             validator: (value) => value!.isEmpty ? 'Ingrese su nombre' : null,
                           ),
                           const SizedBox(height: 20),
@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextFormField(
                             controller: _emailController,
                             decoration: _inputDecoration('Correo', Icons.email),
-                            style: TextStyle(color: Colors.white), // Texto blanco
+                            style: TextStyle(color: AppColors.textColor), // Usa el color de texto
                             validator: _validateEmail,
                           ),
                           const SizedBox(height: 20),
@@ -129,7 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _passwordController,
                             obscureText: true,
                             decoration: _inputDecoration('Contraseña', Icons.lock),
-                            style: TextStyle(color: Colors.white), // Texto blanco
+                            style: TextStyle(color: AppColors.textColor), // Usa el color de texto
                             validator: (value) => value!.length < 6 ? 'Mínimo 6 caracteres' : null,
                           ),
                           const SizedBox(height: 20),
@@ -138,26 +138,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _confirmPasswordController,
                             obscureText: true,
                             decoration: _inputDecoration('Confirmar Contraseña', Icons.lock),
-                            style: TextStyle(color: Colors.white), // Texto blanco
+                            style: TextStyle(color: AppColors.textColor), // Usa el color de texto
                             validator: (value) => value != _passwordController.text ? 'No coinciden' : null,
                           ),
                           const SizedBox(height: 30),
                           // Botón de registro
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF424769), // #424769
+                              backgroundColor: AppColors.secondaryColor, // Usa el color secundario
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               minimumSize: const Size(double.infinity, 50),
                             ),
                             onPressed: _registerUser,
-                            child: const Text(
+                            child: Text(
                               'Registrarse',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: AppColors.textColor, // Usa el color de texto
+                                  ),
                             ),
                           ),
                         ],
@@ -177,17 +176,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
   InputDecoration _inputDecoration(String label, IconData icon) {
     return InputDecoration(
       labelText: label,
-      labelStyle: TextStyle(color: Colors.white70), // Texto claro
-      prefixIcon: Icon(icon, color: Colors.white70), // Ícono claro
+      labelStyle: TextStyle(color: AppColors.textColor.withOpacity(0.7)), // Texto claro
+      prefixIcon: Icon(icon, color: AppColors.iconColor), // Ícono claro
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: const BorderSide(color: Colors.white70),
+        borderSide: BorderSide(color: AppColors.textColor.withOpacity(0.7)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: const BorderSide(color: Colors.white70),
+        borderSide: BorderSide(color: AppColors.textColor.withOpacity(0.7)),
       ),
-      hintStyle: TextStyle(color: Colors.white54), // Texto claro
+      hintStyle: TextStyle(color: AppColors.textColor.withOpacity(0.5)), // Texto claro
     );
   }
 
